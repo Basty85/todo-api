@@ -1,6 +1,10 @@
-from pydantic import BaseModel
+from sqlalchemy import Table, Column, Integer, String, Boolean
+from app.db import metadata
 
-class Todo(BaseModel):
-    id: int
-    title: str
-    done: bool = False
+todos = Table(
+    "todos",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("title", String, nullable=False),
+    Column("done", Boolean, default=False)
+)
