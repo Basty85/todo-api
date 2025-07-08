@@ -48,7 +48,7 @@ This project is a simple Todo API built with FastAPI and SQLite. It provides CRU
 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/todo-api.git
+git clone https://github.com/Basty85/todo-api.git
 cd todo-api
 ```
 
