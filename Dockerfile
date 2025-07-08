@@ -7,6 +7,7 @@ WORKDIR /app
 # Kopiere requirements und installiere
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y sqlite3
 
 # Kopiere den Code
 COPY ./app ./app
