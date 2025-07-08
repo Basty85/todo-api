@@ -19,7 +19,19 @@ This project is a simple Todo API built with FastAPI and SQLite. It provides CRU
 
 ## Project Structure
 
-<pre><code>```text . ├── app │ ├── main.py # FastAPI app and routes │ ├── models.py # SQLAlchemy table definitions │ ├── schemas.py # Pydantic models for data validation │ ├── db.py # Database connection setup │ └── templates │ └── index.html # Frontend HTML template ├── Dockerfile ├── requirements.txt └── README.md ```</code></pre>
+```bash
+.
+├── app
+│   ├── main.py          # FastAPI app and routes
+│   ├── models.py        # SQLAlchemy table definitions
+│   ├── schemas.py       # Pydantic models for data validation
+│   ├── db.py            # Database connection setup
+│   └── templates
+│       └── index.html   # Frontend HTML template
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
 
 ---
 
