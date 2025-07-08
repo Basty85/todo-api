@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <title>Todo Liste</title>
+</head>
+<body>
+    <h1>Todo Liste</h1>
+
+    <ul id="todo-list"></ul>
+
+    <h2>Neues Todo hinzufügen</h2>
+    <form id="todo-form">
+        <input type="number" id="todo-id" placeholder="ID" required />
+        <input type="text" id="todo-title" placeholder="Titel" required />
+        <label>
+            Erledigt?
+            <input type="checkbox" id="todo-done" />
+        </label>
+        <button type="submit">Hinzufügen</button>
+    </form>
+
+    <script>
+        const apiUrl = 'http://localhost:8000/todos';
+
+        // Todos laden und anzeigen
+        async function loadTodos() {
+            const response = await fetch(apiUrl);
+            const todos = await response.json();
+
+            const list = document.getElementById('todo-list');
+            list.innerHTML = '';
+
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.textContent = `${todo.id}: ${todo.title} [${todo.done ? '✓' : '✗'}] `;
+
+                // Löschen Button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Löschen';
+                deleteBtn.onclick = async () => {
+                    await fetch(`${apiUrl}/${todo.id}`, { method: 'DELETE' });
+                    loadTodos();  // Liste aktualisieren
+                };
+                li.appendChild(deleteBtn);
+
+                list.appendChild(li);
+            });
+        }
+
+        // Formular absenden - neues Todo hinzufügen
+        document.getElementById('todo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const newTodo = {
+                id: parseInt(document.getElementById('todo-id').value),
+                title: document.getElementById('todo-title').value,
+                done: document.getElementById('todo-done').checked
+            };
+
+            await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newTodo)
+            });
+
+            e.target.reset();
+            loadTodos();
+        });
+
+        // Initiale Todos laden
+        loadTodos();
+    </script>
+</body>
+</html>
